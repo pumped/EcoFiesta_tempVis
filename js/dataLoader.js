@@ -1,8 +1,8 @@
 
 //data files
 miniData = {
-	live: "current.php",
-	updateRate: 1 //seconds
+	live: "current.json",
+	updateRate: 2 //seconds
 }
 treeData = {
 	live: "current.json",
@@ -17,7 +17,7 @@ $(document).ready(function(){
 	
 	liveGraphs();
 	populateHistory();
-	treeGraph();
+	setTimeout(treeGraph(),2000);
 });
 
 function liveGraphs() {	
