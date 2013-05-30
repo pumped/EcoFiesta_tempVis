@@ -69,7 +69,10 @@ $(document).ready(function () {
                 value: 0,
                 width: 1,
                 color: '#808080'
-            }]
+            }],
+			minRange: 1,
+			minTickInterval: 1,
+			startOnTick: true
         },{
             title: {
                 text: 'Humidity (%)',
@@ -104,7 +107,10 @@ $(document).ready(function () {
                 value: 0,
                 width: 1,
                 color: '#808080'
-            }]
+            }],
+			minRange: 1,
+			minTickInterval: 1,
+			startOnTick: true
         },{
             title: {
                 text: 'Humidity (%)',
@@ -139,7 +145,10 @@ $(document).ready(function () {
                 value: 0,
                 width: 1,
                 color: '#808080'
-            }]
+            }],
+			minRange: 1,
+			minTickInterval: 1,
+			startOnTick: true
         },{
             title: {
                 text: 'Humidity (%)',
@@ -174,7 +183,10 @@ $(document).ready(function () {
                 value: 0,
                 width: 1,
                 color: '#808080'
-            }]
+            }],
+			minRange: 1,
+			minTickInterval: 1,
+			startOnTick: true
         },{
             title: {
                 text: 'Humidity (%)',
@@ -283,7 +295,10 @@ $(document).ready(function () {
                 value: 0,
                 width: 1,
                 color: '#808080'
-            }]
+            }],
+			minRange: 1,
+			minTickInterval: 1,
+			startOnTick: true
         },
         tooltip: {
             formatter: function() {
@@ -324,7 +339,10 @@ $(document).ready(function () {
                 value: 0,
                 width: 1,
                 color: '#808080'
-            }]
+            }],
+			minRange: 1,
+			minTickInterval: 1,
+			startOnTick: true
         },
         tooltip: {
             formatter: function() {
@@ -366,7 +384,10 @@ $(document).ready(function () {
                 value: 0,
                 width: 1,
                 color: '#808080'
-            }]
+            }],
+			minRange: 1,
+			minTickInterval: 1,
+			startOnTick: true
         },
         tooltip: {
             formatter: function() {
@@ -408,7 +429,10 @@ $(document).ready(function () {
                 value: 0,
                 width: 1,
                 color: '#808080'
-            }]
+            }],
+			minRange: 1,
+			minTickInterval: 1,
+			startOnTick: true
         },
         tooltip: {
             formatter: function() {
@@ -450,7 +474,10 @@ $(document).ready(function () {
                 value: 0,
                 width: 1,
                 color: '#808080'
-            }]
+            }],
+			minRange: 1,
+			minTickInterval: 1,
+			startOnTick: true
         },
         tooltip: {
             formatter: function() {

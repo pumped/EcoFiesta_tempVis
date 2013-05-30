@@ -1,15 +1,4 @@
 
-//data files
-miniData = {
-	live: "current.json",
-	updateRate: 2 //seconds
-}
-treeData = {
-	live: "current.json",
-	historic: "every_10.json",
-	updateRate: 10*60 //10 minutes
-}
-
 
 $(document).ready(function(){
 	$('#gradient').gradient({elements:5,sensitivity:0.1});
@@ -264,34 +253,3 @@ function setLiveGraphs(key, data) {
 	
 	
 }
-
-var miniGraphSensors = ["28FA21080300006E", "2863F50703000092", "2828F407030000D2", "28D2FD070300009C", "2858200803000091"];
-var mainGraphSensors = {"temperature": ["28FA21080300006E", "2863F50703000092", "2828F407030000D2", "28D2FD070300009C"], 
-						"humidity": ["26020656010000E9","26BFDC55010000CF","26B8F25501000010","26A7F5550100003E"]};
-
-var mainOrder = {};
-mainOrder.temperature = ["26C1F2550100001E",
-				"28771A080300003A",
-                "2863F50703000092",
-                "2828F407030000D2",
-                "28D2FD070300009C",
-                "2858200803000091",
-                "28FA21080300006E",
-                "2862220803000030",
-                "2832F80703000067",
-                "26FA055601000074",
-                "26F9EB55010000DD",
-                "262DF055010000C9"];
-				
-mainOrder.humidity = [
-				"26020656010000E9",
-                "26B8F25501000010",
-                "260B06560100007F",
-                "26BFDC55010000CF",
-                "26A7F5550100003E",
-                "263908560100005E",
-                "262AF955010000BF",
-                "26CCF855010000E9",
-                "26FA055601000074",
-                "26F9EB55010000DD"
-];
