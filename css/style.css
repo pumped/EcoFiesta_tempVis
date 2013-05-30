@@ -50,7 +50,11 @@ h1 {
 	
 }
 
-
+#column1 {
+	background:url('../images/pplant.JPG') no-repeat left center;
+	background-size:100% 100%;
+	background-position:left;
+}
 
 #column2 {
 	background:url('../images/tree1.jpg') no-repeat left center;
