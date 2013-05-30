@@ -83,7 +83,7 @@ function updateTreeGraphs() {
 		for (type in mainOrder) {
 			for (i=0; i < mainOrder[type].length; i++) {
 				if (graphData[type][i] == undefined) {
-					console.log("found missing sensor");
+					console.log("missing sensor: " + mainOrder[type]);
 					graphData[type][i] = prev;
 				} else {
 					prev = graphData[type][i];
