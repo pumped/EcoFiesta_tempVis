@@ -1,7 +1,7 @@
 
 
 $(document).ready(function(){
-	$('#gradient').gradient({elements:5,sensitivity:0.1});
+	$('#gradient').gradient({elements:5,sensitivity:0.2});
 	$('#gradient').gradient.setData([1,2,3,2,6,1,2]);
 	
 	liveGraphs();
@@ -83,7 +83,7 @@ function updateTreeGraphs() {
 		for (type in mainOrder) {
 			for (i=0; i < mainOrder[type].length; i++) {
 				if (graphData[type][i] == undefined) {
-					console.log("missing sensor: " + mainOrder[type]);
+					console.log("missing sensor: " + mainOrder[type][i]);
 					graphData[type][i] = prev;
 				} else {
 					prev = graphData[type][i];
@@ -95,53 +95,24 @@ function updateTreeGraphs() {
 		$('#vertGraph').highcharts().series[0].setData(graphData['temperature']);
 		$('#vertGraph').highcharts().series[1].setData(graphData['humidity']);
 		
+		var mm = [null,null];
+		var mmh = [null,null];
 		for (i=1;i<=mainGraphSensors.temperature.length;i++) {
+			var series = $('#history'+(i)).highcharts().series;
 			$('#history'+(i)).highcharts().redraw();
+			
+			//find minimum and maximum across all graphs
+			mm = minMaxCompare(minMax(series[0].data),mm);
+			mmh = minMaxCompare(minMax(series[1].data),mmh);
 		}
+		
+		setExtremities('#history',4,mm)
+		console.log(mmh);
+		setExtremities('#history',4,mmh,1)
 		
 	});
 }
 
-/*function findClosest(arr, elem) {
-	var value = -1;
-	var i,j = elem;
-	var top = bottom = null;
-	while (value == -1) {
-
-		if (top == null) {
-			i--;
-			if (i > 1) {
-				if (arr[i] != undefined) {
-					top = arr[i]
-				}
-			}
-		}
-		if (bottom == null) {
-			j++;
-			if (j < arr.length) {
-				if (arr[j] != undefined) {
-					bottom = arr[i];
-				}
-			}
-		}
-		
-		if (bottom != null && top !=null) {
-			break;
-		} else if (i == 0 && j == arr.length) {
-			break;
-		}
-	}
-	
-	if (bottom == null)
-		value = top;
-	if (top == null)
-		value = bottom;
-	if (top != null && bottom != null)
-		value = (top + bottom) / 2;
-		
-	
-	return value;
-};*/
 
 
 //reload the main trees historic data
@@ -226,6 +197,8 @@ function setGradient(data) {
 //sets the mini trees live graphs
 function setLiveGraphs(key, data) {
 	
+	var mm = [null,null];
+	
 	for (i=1; i<=5; i++) {
 		//check this point has data
 		if (data[i-1] != undefined) {
@@ -247,9 +220,59 @@ function setLiveGraphs(key, data) {
 				}
 		
 				series[0].addPoint([parseInt(key*1000),data[i-1]],true,bshift);
+				//console.log(series)
 			}
 		}
+		
+		//find minimum and maximum across all graphs
+		mm = minMaxCompare(minMax(series[0].data),mm);
 	}
 	
+	console.log(mm);
+	setExtremities('#live',5,mm)
 	
+}
+
+function setExtremities(name,count,mm,axis) {
+	if (axis == undefined) {
+		axis = 0;
+	} 
+	var bounds = [];
+	var diff =  mm[1] - mm[0];
+	bounds[0] = mm[0] - 1;
+	bounds[1] = mm[1] + 1;
+
+	for (i=1; i<=count; i++) {
+		$(name+i).highcharts().yAxis[axis].setExtremes(Math.floor(bounds[0]),Math.ceil(bounds[1]));
+		//console.log(name+i + ' extremities set: '+Math.floor(bounds[0]) + ',' + Math.ceil(bounds[1]));
+	}
+}
+
+function minMaxCompare(e, current) {
+	var val = [];
+	if (current[0] == null && current[1] == null) {
+		val = e;
+	} else {
+		val[0] = ( e[0] < current[0] ? e[0] : current[0] ); //min
+		val[1] = ( e[1] > current[1] ? e[1] : current[1] ); //max
+		console.log(e[1] + " : " + current[1]);
+	}
+	return val;
+}
+
+function minMax(data) {
+	var max = min = null;
+	for (e in data) {
+		//initialise it if null
+		if (min == null) {
+			max = min = data[e].y;
+		}
+		
+		if (data[e].y < min)
+			min = data[e].y;
+		if (data[e].y > max)
+			max = data[e].y;
+	}
+	
+	return [min,max];
 }
