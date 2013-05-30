@@ -17,7 +17,7 @@ $(document).ready(function(){
 	
 	liveGraphs();
 	populateHistory();
-	setTimeout(treeGraph(),2000);
+	setTimeout(treeGraph,2000);
 });
 
 function liveGraphs() {	
@@ -39,8 +39,10 @@ function loadGraphs() {
 			break;
 		}
 		
-		setLiveGraphs(k, data[0][k]);
-		setGradient(data[0][k]);
+		sData = {};
+		sData = sortData(data[0][k].temperature, miniGraphSensors);
+		setLiveGraphs(k, sData);
+		setGradient(sData);
 		
 		setTimeout(liveGraphs,miniData.updateRate * 1000);		
 	});
@@ -55,13 +57,15 @@ function updateTreeGraphs() {
 			var graphData = [];
 			for (type in data[time]) {
 				sensors = data[time][type];
-				graphData[type] = [];			
+				graphData[type] = [];
 				
 				//create data array for vert graph
 				for (sensor in sensors) {
 					value = sensors[sensor];
 					//console.log(sensor);
-					graphData[type].push(value);
+					if (mainOrder[type].indexOf(sensor) != -1) {
+						graphData[type][mainOrder[type].indexOf(sensor)] = value;
+					}
 				
 				
 					//add points to main graphs
@@ -99,7 +103,7 @@ function updateTreeGraphs() {
 //reload the main trees historic data
 function populateHistory() {
 	$.getJSON(treeData.historic,function(data) {
-		console.log('loaded history');
+		//console.log('loaded history');
 		
 		dataTypes = ["temperature", "humidity"];
 		
@@ -143,7 +147,7 @@ function addData(chartID, data, type, s, bShift) {
 			type: 'spline',
 			data: [{"x":data[0],"y":data[1]}]
 		});
-		console.log('added series');
+		//console.log('added series');
 	} else {
 		series[s].addPoint([parseInt(data[0]),data[1]],false,bShift);
 		//console.log('added point to series ' + s + ' :'  + data[0] + ', ' + data[1]);
@@ -152,7 +156,19 @@ function addData(chartID, data, type, s, bShift) {
 
 
 
+function sortData(d, order) {
+	var data = [];
+	
+	for (i=0;i<order.length;i++) {
+		if (d[order[i]] != undefined) {
+			data[i] = d[order[i]];
+		} else {
+			console.log("sensor " + order[i] + " not found");
+		}
+	}
 
+	return data;
+}
 
 
 
@@ -160,13 +176,7 @@ function addData(chartID, data, type, s, bShift) {
 
 //sets the gradients data
 function setGradient(data) {
-	gradData = new Array();
-	
-	for (i=0; i<5; i++) {
-		gradData[i] = data.temperature[miniGraphSensors[i]]
-	}
-	
-	$('#gradient').gradient.setData(gradData);
+	$('#gradient').gradient.setData(data);
 }
 
 //sets the mini trees live graphs
@@ -174,14 +184,14 @@ function setLiveGraphs(key, data) {
 	
 	for (i=1; i<=5; i++) {
 		//check this point has data
-		if (data.temperature[miniGraphSensors[i-1]] != undefined) {
+		if (data[i-1] != undefined) {
 			series = $('#live'+i).highcharts().series;
 			
 			//define a series if undefined
 			if (series[0] == undefined) {
 				$('#live'+i).highcharts().addSeries({
 					name: 'Temperature',
-					data: [{"x":parseInt(key*1000),"y":data.temperature[miniGraphSensors[i-1]]}]
+					data: [{"x":parseInt(key*1000),"y":data[i-1]}]
 				});
 				console.log('added series');
 			} else {				
@@ -192,7 +202,7 @@ function setLiveGraphs(key, data) {
 					bshift = false;
 				}
 		
-				series[0].addPoint([parseInt(key*1000),data.temperature[miniGraphSensors[i-1]]],true,bshift);
+				series[0].addPoint([parseInt(key*1000),data[i-1]],true,bshift);
 			}
 		}
 	}
@@ -203,3 +213,30 @@ function setLiveGraphs(key, data) {
 var miniGraphSensors = ["28FA21080300006E", "2863F50703000092", "2828F407030000D2", "28D2FD070300009C", "2858200803000091"];
 var mainGraphSensors = {"temperature": ["28FA21080300006E", "2863F50703000092", "2828F407030000D2", "28D2FD070300009C"], 
 						"humidity": ["26020656010000E9","26BFDC55010000CF","26B8F25501000010","26A7F5550100003E"]};
+
+var mainOrder = {};
+mainOrder.temperature = ["28771A080300003A",
+                "2863F50703000092",
+                "2828F407030000D2",
+                "28D2FD070300009C",
+                "2858200803000091",
+                "28FA21080300006E",
+                "2862220803000030",
+                "2832F80703000067",
+                "26FA055601000074",
+                "26F9EB55010000DD",
+                "262DF055010000C9",
+                "26C1F2550100001E"];
+				
+mainOrder.humidity = [
+				"26020656010000E9",
+                "26B8F25501000010",
+                "260B06560100007F",
+                "26BFDC55010000CF",
+                "26A7F5550100003E",
+                "263908560100005E",
+                "262AF955010000BF",
+                "26CCF855010000E9",
+                "26FA055601000074",
+                "26F9EB55010000DD"
+];
