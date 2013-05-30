@@ -62,8 +62,10 @@ function updateTreeGraphs() {
 				//create data array for vert graph
 				for (sensor in sensors) {
 					value = sensors[sensor];
-					//console.log(sensor);
+					
+					//add the data to the vert graph array
 					if (mainOrder[type].indexOf(sensor) != -1) {
+						//console.log(type + ", " + sensor + ", " + mainOrder[type].indexOf(sensor));
 						graphData[type][mainOrder[type].indexOf(sensor)] = value;
 					}
 				
@@ -87,6 +89,19 @@ function updateTreeGraphs() {
 			}
 		}
 		
+		//check all sensors have been set in vert graph
+		prev = null;
+		for (type in mainOrder) {
+			for (i=0; i < mainOrder[type].length; i++) {
+				if (graphData[type][i] == undefined) {
+					console.log("found missing sensor");
+					graphData[type][i] = prev;
+				} else {
+					prev = graphData[type][i];
+				}
+			}
+		}
+		
 		console.log(graphData['humidity'].length + " : " + graphData['temperature'].length);
 		$('#vertGraph').highcharts().series[0].setData(graphData['temperature']);
 		$('#vertGraph').highcharts().series[1].setData(graphData['humidity']);
@@ -98,6 +113,46 @@ function updateTreeGraphs() {
 	});
 }
 
+/*function findClosest(arr, elem) {
+	var value = -1;
+	var i,j = elem;
+	var top = bottom = null;
+	while (value == -1) {
+
+		if (top == null) {
+			i--;
+			if (i > 1) {
+				if (arr[i] != undefined) {
+					top = arr[i]
+				}
+			}
+		}
+		if (bottom == null) {
+			j++;
+			if (j < arr.length) {
+				if (arr[j] != undefined) {
+					bottom = arr[i];
+				}
+			}
+		}
+		
+		if (bottom != null && top !=null) {
+			break;
+		} else if (i == 0 && j == arr.length) {
+			break;
+		}
+	}
+	
+	if (bottom == null)
+		value = top;
+	if (top == null)
+		value = bottom;
+	if (top != null && bottom != null)
+		value = (top + bottom) / 2;
+		
+	
+	return value;
+};*/
 
 
 //reload the main trees historic data
@@ -215,7 +270,8 @@ var mainGraphSensors = {"temperature": ["28FA21080300006E", "2863F50703000092", 
 						"humidity": ["26020656010000E9","26BFDC55010000CF","26B8F25501000010","26A7F5550100003E"]};
 
 var mainOrder = {};
-mainOrder.temperature = ["28771A080300003A",
+mainOrder.temperature = ["26C1F2550100001E",
+				"28771A080300003A",
                 "2863F50703000092",
                 "2828F407030000D2",
                 "28D2FD070300009C",
@@ -225,8 +281,7 @@ mainOrder.temperature = ["28771A080300003A",
                 "2832F80703000067",
                 "26FA055601000074",
                 "26F9EB55010000DD",
-                "262DF055010000C9",
-                "26C1F2550100001E"];
+                "262DF055010000C9"];
 				
 mainOrder.humidity = [
 				"26020656010000E9",
