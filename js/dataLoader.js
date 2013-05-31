@@ -238,10 +238,15 @@ function setExtremities(name,count,mm,axis) {
 		axis = 0;
 	} 
 	var bounds = [];
-	var diff =  mm[1] - mm[0];
-	bounds[0] = mm[0] - 0.5;
-	bounds[1] = mm[1] + 0.5;
+	bounds = [Math.floor(mm[0]) , Math.ceil(mm[1])];
+	var diff =  bounds[1] - bounds[0];
+	if (diff < 2) {
+		var additional = diff / 2;
+		bounds[0] = bounds[0] - additional;
+		bounds[1] = bounds[1] + additional;
+	}
 	
+	console.log(bounds);
 	console.log(name+ ' extremities set: '+Math.floor(bounds[0]) + ',' + Math.ceil(bounds[1]));
 	
 	for (i=1; i<=count; i++) {
