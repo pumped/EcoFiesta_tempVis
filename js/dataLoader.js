@@ -228,7 +228,7 @@ function setLiveGraphs(key, data) {
 		mm = minMaxCompare(minMax(series[0].data),mm);
 	}
 	
-	console.log(mm);
+	//console.log(mm);
 	setExtremities('#live',5,mm)
 	
 }
@@ -241,7 +241,9 @@ function setExtremities(name,count,mm,axis) {
 	var diff =  mm[1] - mm[0];
 	bounds[0] = mm[0] - 1;
 	bounds[1] = mm[1] + 1;
-
+	
+	console.log(name+ ' extremities set: '+Math.floor(bounds[0]) + ',' + Math.ceil(bounds[1]));
+	
 	for (i=1; i<=count; i++) {
 		$(name+i).highcharts().yAxis[axis].setExtremes(Math.floor(bounds[0]),Math.ceil(bounds[1]));
 		//console.log(name+i + ' extremities set: '+Math.floor(bounds[0]) + ',' + Math.ceil(bounds[1]));
@@ -255,7 +257,7 @@ function minMaxCompare(e, current) {
 	} else {
 		val[0] = ( e[0] < current[0] ? e[0] : current[0] ); //min
 		val[1] = ( e[1] > current[1] ? e[1] : current[1] ); //max
-		console.log(e[1] + " : " + current[1]);
+		//console.log(e[1] + " : " + current[1]);
 	}
 	return val;
 }
