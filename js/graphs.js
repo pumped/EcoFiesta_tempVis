@@ -70,9 +70,9 @@ $(document).ready(function () {
                 width: 1,
                 color: '#808080'
             }],
-			minRange: 1,
-			minTickInterval: 1,
-			startOnTick: true
+			
+			
+			
         },{
             title: {
                 text: 'Humidity (%)',
@@ -108,9 +108,9 @@ $(document).ready(function () {
                 width: 1,
                 color: '#808080'
             }],
-			minRange: 1,
-			minTickInterval: 1,
-			startOnTick: true
+			
+			
+			
         },{
             title: {
                 text: 'Humidity (%)',
@@ -146,9 +146,9 @@ $(document).ready(function () {
                 width: 1,
                 color: '#808080'
             }],
-			minRange: 1,
-			minTickInterval: 1,
-			startOnTick: true
+			
+			
+			
         },{
             title: {
                 text: 'Humidity (%)',
@@ -184,9 +184,9 @@ $(document).ready(function () {
                 width: 1,
                 color: '#808080'
             }],
-			minRange: 1,
-			minTickInterval: 1,
-			startOnTick: true
+			
+			
+			
         },{
             title: {
                 text: 'Humidity (%)',
@@ -274,7 +274,7 @@ $(document).ready(function () {
     $('#live1').highcharts({
         chart: {
             type: 'spline',
-            animation: Highcharts.svg, // don't animate in old IE
+            //animation: Highcharts.svg, // don't animate in old IE
             marginRight: 10
         },
         title: {
@@ -296,9 +296,9 @@ $(document).ready(function () {
                 width: 1,
                 color: '#808080'
             }],
-			minRange: 1,
-			minTickInterval: 1,
-			startOnTick: true
+			
+			
+			
         },
         tooltip: {
             formatter: function() {
@@ -318,7 +318,7 @@ $(document).ready(function () {
     $('#live2').highcharts({
         chart: {
             type: 'spline',
-            animation: Highcharts.svg, // don't animate in old IE
+            //animation: Highcharts.svg, // don't animate in old IE
             marginRight: 10
         },
         title: {
@@ -340,9 +340,9 @@ $(document).ready(function () {
                 width: 1,
                 color: '#808080'
             }],
-			minRange: 1,
-			minTickInterval: 1,
-			startOnTick: true
+			
+			
+			
         },
         tooltip: {
             formatter: function() {
@@ -362,7 +362,7 @@ $(document).ready(function () {
     $('#live3').highcharts({
         chart: {
             type: 'spline',
-            animation: Highcharts.svg, // don't animate in old IE
+            //animation: Highcharts.svg, // don't animate in old IE
             marginRight: 10
         },
         title: {
@@ -385,9 +385,9 @@ $(document).ready(function () {
                 width: 1,
                 color: '#808080'
             }],
-			minRange: 1,
-			minTickInterval: 1,
-			startOnTick: true
+			
+			
+			
         },
         tooltip: {
             formatter: function() {
@@ -407,7 +407,7 @@ $(document).ready(function () {
     $('#live4').highcharts({
         chart: {
             type: 'spline',
-            animation: Highcharts.svg, // don't animate in old IE
+            //animation: Highcharts.svg, // don't animate in old IE
             marginRight: 10
         },
         title: {
@@ -430,9 +430,9 @@ $(document).ready(function () {
                 width: 1,
                 color: '#808080'
             }],
-			minRange: 1,
-			minTickInterval: 1,
-			startOnTick: true
+			
+			
+			
         },
         tooltip: {
             formatter: function() {
@@ -452,7 +452,7 @@ $(document).ready(function () {
     $('#live5').highcharts({
         chart: {
             type: 'spline',
-            animation: Highcharts.svg, // don't animate in old IE
+            //animation: Highcharts.svg, // don't animate in old IE
             marginRight: 10
         },
         title: {
@@ -475,9 +475,9 @@ $(document).ready(function () {
                 width: 1,
                 color: '#808080'
             }],
-			minRange: 1,
-			minTickInterval: 1,
-			startOnTick: true
+			
+			
+			
         },
         tooltip: {
             formatter: function() {
