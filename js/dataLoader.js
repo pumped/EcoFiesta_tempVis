@@ -219,7 +219,7 @@ function setLiveGraphs(key, data) {
 					bshift = false;
 				}
 		
-				series[0].addPoint([parseInt(key*1000),data[i-1]],true,bshift);
+				series[0].addPoint([parseInt(key*1000),data[i-1]],false,bshift);
 				//console.log(series)
 			}
 		}
@@ -239,8 +239,8 @@ function setExtremities(name,count,mm,axis) {
 	} 
 	var bounds = [];
 	var diff =  mm[1] - mm[0];
-	bounds[0] = mm[0] - 1;
-	bounds[1] = mm[1] + 1;
+	bounds[0] = mm[0] - 0.5;
+	bounds[1] = mm[1] + 0.5;
 	
 	console.log(name+ ' extremities set: '+Math.floor(bounds[0]) + ',' + Math.ceil(bounds[1]));
 	
